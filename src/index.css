@@ -1,0 +1,14 @@
+.card-body.light {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  
+  .card-body.dark {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+
+  .card-body {
+    border-radius: 8px;
+  }
