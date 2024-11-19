@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,7 +18,7 @@ const translation = {
 const App = () => {
   const lang = useSelector((state) => state.lang.lang);
   const dispatch = useDispatch();
-
+const [todoToEdit, setTodoToEdit] = useState(null);
   const { title, button } = translation[lang];
 
   const toggleLanguage = () => {
@@ -36,8 +36,8 @@ const App = () => {
                 {button}
               </button>
               <h1 className="card-title text-center mb-4">{title}</h1>
-              <TodoInput />
-              <TodoList />
+              <TodoInput todoToEdit={todoToEdit} setTodoToEdit={setTodoToEdit}/>
+              <TodoList onEdit={setTodoToEdit}/>
             </div>
           </div>
         </div>

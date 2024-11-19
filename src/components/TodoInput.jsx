@@ -1,13 +1,11 @@
 // src/components/TodoInput.js
-import React, { useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
-import { addTodo } from "../redux/todos/action";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { addTodo, updateTodo } from "../redux/todos/action";
 
-const TodoInput = () => {
+const TodoInput = ({ todoToEdit, setTodoToEdit }) => {
   const lang = useSelector((state) => state.lang.lang);
- const todos = useSelector((state) => state.todo.todos);
-  const [text, setText] = useState("");
-  const [updateId, setUpdateId] = useState(null);
+  const [text, setText] = useState(todoToEdit?.text || "");
   const dispatch = useDispatch();
 
   const translation = {
@@ -25,20 +23,23 @@ const TodoInput = () => {
 
   const { add, update, placeholder } = translation[lang];
 
+  useEffect(() => {
+    if (todoToEdit) {
+      setText(todoToEdit.text);
+    } else {
+      setText("");
+    }
+  }, [todoToEdit]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (updateId) {
-      dispatch(updateTodo(updateId, text));
-      setUpdateId(null);
+    if (todoToEdit) {
+      dispatch(updateTodo(todoToEdit.id, text));
+      setTodoToEdit(null);
     } else {
       dispatch(addTodo({ id: Date.now(), text, completed: false }));
     }
     setText("");
-  };
-  
-  const handleUpdateClick = (todo) => {
-    setUpdateId(todo.id);
-    setText(todo.text);
   };
 
   return (
@@ -47,13 +48,16 @@ const TodoInput = () => {
         <input
           type="text"
           className="form-control"
-          placeholder= {placeholder}
+          placeholder={placeholder}
           value={text}
           onChange={(e) => setText(e.target.value)}
           required
         />
-        <button className="btn btn-primary" type="submit">
-        {updateId ? update : add}
+        <button
+          className={`btn ${todoToEdit ? "btn-warning" : "btn-primary"}`}
+          type="submit"
+        >
+          {todoToEdit ? update : add}
         </button>
       </form>
     </div>

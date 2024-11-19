@@ -7,4 +7,4 @@ export const UPDATE_TODO = "UPDATE_TODO";
 export const addTodo = (todo) => ({ type: ADD_TODO, payload: todo });
 export const deleteTodo = (id) => ({ type: DELETE_TODO, payload: id });
 export const completeTodo = (id) => ({ type: COMPLETE_TODO, payload: id });
-export const updateTodo = (id) => ({ type: UPDATE_TODO, payload: {id, text} });
+export const updateTodo = (id, text) => ({ type: UPDATE_TODO, payload: {id, text} });

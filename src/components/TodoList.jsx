@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteTodo } from "../redux/todos/action";
 import { completeTodo } from "../redux/todos/action";
 
-const TodoList = () => {
+const TodoList = ({ onEdit }) => {
   const todos = useSelector((state) => state.todo.todos);
   const lang = useSelector((state) => state.lang.lang);
   const dispatch = useDispatch();
@@ -22,6 +22,9 @@ const TodoList = () => {
   };
   const { complete, delete: deleteText, update } = translation[lang];
 
+  const handleUpdateClick = (todo) => {
+    onEdit(todo);
+  }
   return (
     <ul className="list-group">
       {todos.map((todo) => (
