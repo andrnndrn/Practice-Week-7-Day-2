@@ -1,3 +1,4 @@
+import { TOGGLE_THEME } from "./action";
 
 const initialState = {
     theme: "light", 
@@ -5,7 +6,7 @@ const initialState = {
   
   const themeReducer = (state = initialState, action) => {
     switch (action.type) {
-      case "TOGGLE_THEME":
+      case TOGGLE_THEME:
         return {
           ...state,
           theme: state.theme === "light" ? "dark" : "light",

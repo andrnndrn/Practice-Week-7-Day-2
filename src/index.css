@@ -12,3 +12,9 @@
   .card-body {
     border-radius: 8px;
   }
+
+  .card-body.dark .btn {
+    background-color: #121212;
+    color: #ffffff;
+    border-color: #ffffff;
+  }
